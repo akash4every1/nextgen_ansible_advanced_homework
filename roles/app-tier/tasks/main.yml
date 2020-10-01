@@ -1,26 +1,26 @@
 ---
-- name: install {{ payload }}
+- name: install payload {{ payload }}
   yum:
     name: "{{ payload }}"
     state: latest
 
-- name: enable {{ payload }} at boot
+- name: enable {{ payload }} 
   service:
     name: "{{ payload }}"
     enabled: yes
 
-- name: create tomcat default web directory
+- name: create default directory for tombat
   file:
     path: "{{ tomcat_web_root }}"
     state: directory
 
-- name: copy static index.html to tomcat webroot
+- name: copy index.html to tomcat webroot
   template:
     src: index.html.j2
     dest: "{{ tomcat_web_root }}/index.html"
     mode: 0644
 
-- name: restart tomcat
+- name: restart tomcat service
   service:
     name: "{{ payload }}"
     state: restarted
